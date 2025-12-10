@@ -44,32 +44,22 @@ class RayCasterCfg(SensorBaseCfg):
     offset: OffsetCfg = OffsetCfg()
     """The offset pose of the sensor's frame from the sensor's parent frame. Defaults to identity."""
 
-    attach_yaw_only: bool | None = None
+    attach_yaw_only: bool = False
     """Whether the rays' starting positions and directions only track the yaw orientation.
-    Defaults to None, which doesn't raise a warning of deprecated usage.
 
     This is useful for ray-casting height maps, where only yaw rotation is needed.
 
-    .. deprecated:: 2.1.1
+    .. warning::
 
-        This attribute is deprecated and will be removed in the future. Please use
-        :attr:`ray_alignment` instead.
-
-        To get the same behavior as setting this parameter to ``True`` or ``False``, set
-        :attr:`ray_alignment` to ``"yaw"`` or "base" respectively.
-
+        This attribute is deprecated. Use :attr:`~isaaclab.sensors.ray_caster.ray_caster_cfg.ray_alignment` instead.
+        To get the same behavior, set `ray_alignment` to `"yaw"`.
     """
 
-    ray_alignment: Literal["base", "yaw", "world"] = "base"
-    """Specify in what frame the rays are projected onto the ground. Default is "base".
-
-    The options are:
-
-    * ``base`` if the rays' starting positions and directions track the full root position and orientation.
-    * ``yaw`` if the rays' starting positions and directions track root position and only yaw component of orientation.
-      This is useful for ray-casting height maps.
-    * ``world`` if rays' starting positions and directions are always fixed. This is useful in combination with a mapping
-      package on the robot and querying ray-casts in a global frame.
+    ray_alignment: Literal["base", "yaw", "world"] = "yaw"
+    """Specify in what frame the rays are projected onto the ground. Default is `world`.
+        * `base` if the rays' starting positions and directions track the full root position and orientation.
+        * `yaw` if the rays' starting positions and directions track root position and only yaw component of orientation. This is useful for ray-casting height maps.
+        * `world` if rays' starting positions and directions are always fixed. This is useful in combination with the grid map package.
     """
 
     pattern_cfg: PatternBaseCfg = MISSING
@@ -85,8 +75,7 @@ class RayCasterCfg(SensorBaseCfg):
     """
 
     ray_cast_drift_range: dict[str, tuple[float, float]] = {"x": (0.0, 0.0), "y": (0.0, 0.0), "z": (0.0, 0.0)}
-    """The range of drift (in meters) to add to the projected ray points in local projection frame. Defaults to
-    a dictionary with zero drift for each x, y and z axis.
+    """The range of drift (in meters) to add to the projected ray points in local projection frame. Defaults to (0.0, 0.0) for x, y, and z drift.
 
     For floating base robots, this is useful for simulating drift in the robot's pose estimation.
     """
@@ -96,4 +85,15 @@ class RayCasterCfg(SensorBaseCfg):
 
     Note:
         This attribute is only used when debug visualization is enabled.
+    """
+
+    # Dynamic environment mesh support
+    dynamic_env_mesh_prim_paths: list[str] = []
+    """List of prim path expressions for dynamic environment meshes.
+
+    These paths may contain the placeholder ``{ENV_REGEX_NS}``, which will be replaced with the
+    environment namespace regex (e.g., ``/World/envs/env_.*``) when the sensor initializes.
+
+    Examples:
+        ["{ENV_REGEX_NS}/Cube", "{ENV_REGEX_NS}/Sphere"]
     """

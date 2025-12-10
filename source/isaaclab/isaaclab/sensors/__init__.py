@@ -3,6 +3,11 @@
 #
 # SPDX-License-Identifier: BSD-3-Clause
 
+# Copyright (c) 2022-2025, The Isaac Lab Project Developers.
+# All rights reserved.
+#
+# SPDX-License-Identifier: BSD-3-Clause
+
 """Sub-package containing various sensor classes implementations.
 
 This subpackage contains the sensor classes that are compatible with Isaac Sim. We include both
@@ -39,6 +44,9 @@ from .camera import *  # noqa: F401, F403
 from .contact_sensor import *  # noqa: F401, F403
 from .frame_transformer import *  # noqa: F401
 from .imu import *  # noqa: F401, F403
+from .lidar_sensor import LidarSensor  # noqa: F401
+from .lidar_sensor_cfg import LidarSensorCfg  # noqa: F401
+from .lidar_sensor_data import LidarSensorData  # noqa: F401
 from .ray_caster import *  # noqa: F401, F403
 from .sensor_base import SensorBase  # noqa: F401
 from .sensor_base_cfg import SensorBaseCfg  # noqa: F401

@@ -694,10 +694,10 @@ def quat_rotate(q: torch.Tensor, v: torch.Tensor) -> torch.Tensor:
         The rotated vector in (x, y, z). Shape is (..., 3).
     """
     # deprecation
-    omni.log.warn(
-        "The function 'quat_rotate' will be deprecated in favor of the faster method 'quat_apply'."
-        " Please use 'quat_apply' instead...."
-    )
+    # omni.log.warn(
+    #     "The function 'quat_rotate' will be deprecated in favor of the faster method 'quat_apply'."
+    #     " Please use 'quat_apply' instead...."
+    # )
     return quat_apply(q, v)
 
 
@@ -714,10 +714,10 @@ def quat_rotate_inverse(q: torch.Tensor, v: torch.Tensor) -> torch.Tensor:
     Returns:
         The rotated vector in (x, y, z). Shape is (..., 3).
     """
-    omni.log.warn(
-        "The function 'quat_rotate_inverse' will be deprecated in favor of the faster method 'quat_apply_inverse'."
-        " Please use 'quat_apply_inverse' instead...."
-    )
+    # omni.log.warn(
+    #     "The function 'quat_rotate_inverse' will be deprecated in favor of the faster method 'quat_apply_inverse'."
+    #     " Please use 'quat_apply_inverse' instead...."
+    # )
     return quat_apply_inverse(q, v)
 
 
